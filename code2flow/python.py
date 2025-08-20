@@ -253,7 +253,7 @@ class Python(BaseLanguage):
         import_tokens = [djoin(parent.token, token)]
         inherits = get_inherits(tree)
 
-        class_group = Group(token, group_type, display_name, import_tokens=import_tokens,
+        class_group = Group(f"{parent.token}@{token}", group_type, display_name, import_tokens=import_tokens,
                             inherits=inherits, line_number=line_number, parent=parent)
 
         for node_tree in node_trees:

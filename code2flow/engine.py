@@ -95,6 +95,20 @@ class SubsetParams():
         return SubsetParams(target_function, upstream_depth, downstream_depth)
 
 
+def normalize_target_function(target_function):
+    parts = target_function.split('::')
+    if len(parts) != 2:
+        return target_function
+    
+    file_token = parts[0]
+    function_token = parts[1]
+    
+    if "." not in function_token:
+        return target_function
+    
+    class_token, function_token = function_token.split(".")
+    return f"{file_token}::{file_token}@{class_token}.{function_token}"
+
 
 def _find_target_node(subset_params, all_nodes):
     """
@@ -104,6 +118,9 @@ def _find_target_node(subset_params, all_nodes):
     :rtype: Node
     """
     target_nodes = []
+
+    subset_params.target_function = normalize_target_function(subset_params.target_function)
+
     for node in all_nodes:
         if node.token == subset_params.target_function or \
            node.token_with_ownership() == subset_params.target_function or \
