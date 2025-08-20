@@ -95,7 +95,7 @@ class SubsetParams():
         return SubsetParams(target_function, upstream_depth, downstream_depth)
 
 
-def normalize_target_function(target_function):
+def extend_target_function_token(target_function):
     parts = target_function.split('::')
     if len(parts) != 2:
         return target_function
@@ -119,7 +119,7 @@ def _find_target_node(subset_params, all_nodes):
     """
     target_nodes = []
 
-    subset_params.target_function = normalize_target_function(subset_params.target_function)
+    subset_params.target_function = extend_target_function_token(subset_params.target_function)
 
     for node in all_nodes:
         if node.token == subset_params.target_function or \

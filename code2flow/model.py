@@ -282,12 +282,21 @@ class Node():
     def __lt__(self, other):
             return self.name() < other.name()
 
-    def name(self):
+    def name(self,short=False):
         """
         Names exist largely for unit tests and deterministic node sorting
         :rtype: str
         """
+        if short:
+            return self.shorten_name()
+
         return f"{self.first_group().filename()}::{self.token_with_ownership()}"
+
+    def shorten_name(self):
+        ownership_token = self.token_with_ownership()
+        if "@" in ownership_token:
+            ownership_token = ownership_token.replace(f"{self.first_group().filename()}@", "")
+        return f"{self.first_group().filename()}::{ownership_token}"
 
     def first_group(self):
         """
@@ -432,7 +441,7 @@ class Node():
         return {
             'uid': self.uid,
             'label': self.label(),
-            'name': self.name(),
+            'name': self.name(short=True),
         }
 
 
