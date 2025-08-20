@@ -345,7 +345,7 @@ def make_file_group(tree, filename, extension):
 
     subgroup_trees, node_trees, body_trees = language.separate_namespaces(tree)
     group_type = GROUP_TYPE.FILE
-    token = os.path.split(filename)[-1].rsplit('.' + extension, 1)[0]
+    token = os.path.abspath(filename)
     line_number = 0
     display_name = 'File'
     import_tokens = language.file_import_tokens(filename)

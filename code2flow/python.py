@@ -272,4 +272,5 @@ class Python(BaseLanguage):
         :param filename str:
         :rtype: list[str]
         """
-        return [os.path.split(filename)[-1].rsplit('.py', 1)[0]]
+        # return [os.path.split(filename)[-1].rsplit('.py', 1)[0]]
+        return [os.path.abspath(filename)]
